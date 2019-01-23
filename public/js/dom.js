@@ -85,7 +85,7 @@ const render = (arrayofmovie) => {
             /// Give Values to Element
             imgDetails.src = imglink + result[0].poster_path;
             h1Details.innerText = result[0].title;
-            h3Details.innerHTML = "Voite : -" + result[0].vote +"- M";
+            h3Details.innerHTML = "Vote : " + result[0].vote +" M";
             pDetails.innerText = result[0].overview;
 
             similar(ids, (arr) => {
