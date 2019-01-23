@@ -1,21 +1,24 @@
 const search = document.getElementById('submit');
 const imglink = "https://image.tmdb.org/t/p/w600_and_h900_bestv2";
+const mainsection = document.getElementsByClassName('maindisplay')[0];
+
 let moreDetails = document.createElement('div');   
 search.addEventListener("click", (event) => {
     moreDetails.innerHTML = "";
+    mainsection.innerHTML=" ";
     event.preventDefault();
-
-    theResult()
-});
-function theResult() {
     const inputvalue = document.querySelector(".inputvalue").value;
     if(inputvalue==false) alert('You should fill the input');
+    theResult(inputvalue)
+});
+function theResult(inputvalue) {
+   
     moreDetails.innerHTML = "";
     movieList(inputvalue, render);
+    
    
 };
 const render = (arrayofmovie) => {
-    const mainsection = document.getElementsByClassName('maindisplay')[0];
     if(arrayofmovie.result===''){
         mainsection.innerHTML="";
     }
@@ -94,5 +97,10 @@ const render = (arrayofmovie) => {
     });
 
 }
+
+const pupulersection= () => popular(render);
+
+pupulersection();
+
 
 
