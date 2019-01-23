@@ -1,7 +1,8 @@
-var api_key = `78af21bc3ecda1d6aa8343b5d1a61ada`;
+const api_key = `78af21bc3ecda1d6aa8343b5d1a61ada`;
 
+//------------------------------ XMLHttpRequest ------------------------------
 function api_req(url, callback) {
-  var xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var response = JSON.parse(xhr.responseText);
@@ -12,60 +13,42 @@ function api_req(url, callback) {
   xhr.send();
 }
 
-//------------ search by name ---------
+//------------------------------------------------------------------
+function apiRequest(url, cb) {
+  api_req(url, response => {
+    const result = response.results.map(element => {
+      const { original_name, overview, vote_average, id, poster_path } = element;
+      return {
+        title: original_name,
+        overview,
+        vote: vote_average,
+        id,
+        poster_path,
+      };
+    });
+    cb(result)
+  });
+}
+
+
+//------------------------------ Search By Name TV Show ------------------------------
 function tvSearch(name, cb) {
-  var link = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&language=en-US&&query=${name}`;
-  api_req(link, response => {
-    let arr = response.results.map(element => {
-      const { original_name, overview, vote_average, id, poster_path } = element;
-      return {
-        title: original_name,
-        overview,
-        vote: vote_average,
-        id,
-        poster_path,
-      };
-    });
-    cb(arr);  
-  });
+  const link = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&language=en-US&&query=${name}`;
+  apiRequest(link, cb);
 }
 
 
-
-//------------ top Rated ---------
+//------------------------------ Top Rated TV Show ------------------------------
 function tvRated(cb) {
-  var top = `https://api.themoviedb.org/3/tv/top_rated?api_key=${api_key}&language=en-US`;
-
-  api_req(top, response => {
-    let toparr = response.results.map(element => {
-      const { original_name, overview, vote_average, id, poster_path } = element;
-      return {
-        title: original_name,
-        overview,
-        vote: vote_average,
-        id,
-        poster_path,
-      };
-    });
-    cb(toparr)
-  });
+  const top = `https://api.themoviedb.org/3/tv/top_rated?api_key=${api_key}&language=en-US`;
+  apiRequest(top, cb);
 }
-//------------ popular ---------
-function tvPopular() {
-  var popular = `https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&language=en-US`;
-  api_req(popular, response => {
-    const popular = response.results.map(element => {
-      const { original_name, overview, vote_average, id, poster_path } = element;
-      return {
-        title: original_name,
-        overview,
-        vote: vote_average,
-        id,
-        poster_path,
-      };
-    });
-    cb(popular);
-  });
+
+
+//------------------------------ Popular TV Show ------------------------------
+function tvPopular(cb) {
+  const popular = `https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&language=en-US`;
+  apiRequest(popular, cb);
 }
 
 
