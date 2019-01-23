@@ -78,7 +78,7 @@ const CreateElementsFun = (element) => {
         /// Give Values to Element
         imgDetails.src = imglink + element.poster_path;
         h1Details.innerText = element.title;
-        h3Details.innerHTML = "Voite : -" + element.vote + "- M";
+        h3Details.innerHTML = "Vote : " + element.vote + " M";
         pDetails.innerText = element.overview;
     });
 
