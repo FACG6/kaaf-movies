@@ -11,37 +11,43 @@ function api_req(url, callback) {
   xhr.open("GET", url, true);
   xhr.send();
 }
+
 //------------ search by name ---------
-function movieList() {
-  var link = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=mad`;
+function movieList(name, cb) {
+  var link = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${name}`;
   api_req(link, response => {
-    const arr = response.results.map(element => {
-      const { original_title, overview, vote_average, id } = element;
+    let arr = response.results.map(element => {
+      const { original_title, overview, vote_average, id, poster_path } = element;
       return {
         title: original_title,
         overview,
         vote: vote_average,
-        id
+        id,
+        poster_path,
       };
     });
-    console.log(arr);
+    cb(arr);  
   });
 }
+
+
+
 //------------ top Rated ---------
-function topRated() {
+function topRated(cb) {
   var top = `https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}`;
 
   api_req(top, response => {
-    const toparr = response.results.map(element => {
-      const { original_title, overview, vote_average, id } = element;
+    let toparr = response.results.map(element => {
+      const { original_title, overview, vote_average, id, poster_path } = element;
       return {
         title: original_title,
         overview,
         vote: vote_average,
-        id
+        id,
+        poster_path,
       };
     });
-    console.log(toparr);
+    cb(toparr)
   });
 }
 //------------ popular ---------
@@ -49,30 +55,40 @@ function popular() {
   var popular = `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`;
   api_req(popular, response => {
     const popular = response.results.map(element => {
-      const { original_title, overview, vote_average, id } = element;
+      const { original_title, overview, vote_average, id, poster_path } = element;
       return {
         title: original_title,
         overview,
         vote: vote_average,
         id,
+        poster_path,
       };
     });
-    console.log(popular);
+    cb(popular);
   });
 }
 //------------ similar ---------
-function similar(id) {
+function similar(id, cb) {
   var same = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${api_key}`;
   api_req(same, response => {
-    const popular = response.results.map(element => {
-      const { original_title, overview, vote_average, id } = element;
+    let similar = response.results.map(element => {
+      const { original_title, overview, vote_average, id, poster_path } = element;
       return {
         title: original_title,
         overview,
         vote: vote_average,
-        id
+        id,
+        poster_path,
       };
     });
-    console.log(popular);
+    cb(similar)
   });
 }
+
+
+
+
+
+
+// https://image.tmdb.org/t/p/w600_and_h900_bestv2${res.backdrop_path}
+// https://image.tmdb.org/t/p/w600_and_h900_bestv2/k95sN7BDpuFGhAwIn00t3z27NQs.jpg
