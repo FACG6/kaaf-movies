@@ -19,7 +19,7 @@ If you are bored and in need of a movie, we are the website for you!
        * ibdex.css
        * movieTV.css
      * index.js
-  * comfig.js
+  * config.js
   * Readme.md
   * .gitignore
 
