@@ -31,7 +31,7 @@ If you are bored and in need of a movie, we are the website for you!
    
 # Team Members
   * Khader Murtaja
-  * Abd-Allah 
+  * Abd-Allah Ammar
   * Alaa Badra
   * Fatma Siam
     
